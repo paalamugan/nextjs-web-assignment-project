@@ -6,14 +6,12 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: '',
   reactStrictMode: true,
   swcMinify: true,
   eslint: {
     dirs: ['.'],
   },
   poweredByHeader: false,
-  trailingSlash: true,
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
