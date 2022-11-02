@@ -8,6 +8,7 @@ services:
       target: production
     environment:
       GOOGLE_CLIENT_ID: 86598659yu
+      GOOGLE_CLIENT_SECRET: 86598659yu
     restart: always
     ports:
       - 3000:3000

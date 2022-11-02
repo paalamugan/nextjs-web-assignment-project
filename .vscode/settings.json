@@ -19,5 +19,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "jest.jestCommandLine": "yarn test",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "npm.packageManager": "yarn",
+  "scss.lint.unknownAtRules": "ignore"
 }

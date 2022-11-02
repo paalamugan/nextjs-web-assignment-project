@@ -1,5 +1,6 @@
 {
   "name": "nextjs-web-assignment-project",
+  "description": "Web Assignment Project using Tailwind CSS, SCSS, Next.js, React, Redux, Redux Toolkit, TypeScript, and more.",
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
@@ -29,7 +30,8 @@
     "next-seo": "^5.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.4"
+    "react-redux": "^8.0.4",
+    "sass": "^1.55.0"
   },
   "license": "MIT",
   "devDependencies": {

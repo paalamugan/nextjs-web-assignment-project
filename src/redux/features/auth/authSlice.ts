@@ -1,38 +1,65 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-param-reassign */
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { User } from '@/redux/services/auth';
-import { api } from '@/redux/services/auth';
-import type { RootState } from '@/redux/store';
+import { authApi } from '@/redux/services/auth';
+import type { AppState } from '@/redux/store';
+import type { IAuthState } from '@/types';
+import { isTokenExpired } from '@/utils/common';
 
-type AuthState = {
-  user: User | null;
-  token: string | null;
+function isAuthenticated({ user = null, session = null }: IAuthState) {
+  return !!user && !!session && !!session.token && !isTokenExpired(session.expiresAt);
+}
+
+const setAuthReducer = (state: IAuthState, action: PayloadAction<IAuthState>) => {
+  state.user = action.payload.user || null;
+  state.session = action.payload.session || null;
 };
 
-const slice = createSlice({
+const setSessionReducer = (state: IAuthState, action: PayloadAction<IAuthState['session']>) => {
+  state.session = action.payload;
+};
+
+const setUserReducer = (state: IAuthState, action: PayloadAction<IAuthState['user']>) => {
+  state.user = action.payload;
+};
+
+const initialState: IAuthState = {
+  user: null,
+  session: {
+    provider: null,
+    token: null,
+    expiresAt: null,
+  },
+};
+
+export const slice = createSlice({
   name: 'auth',
-  initialState: { user: null, token: null } as AuthState,
+  initialState,
   reducers: {
-    setCredentials: (
-      state,
-      { payload: { user, token } }: PayloadAction<{ user: User; token: string }>,
-    ) => {
-      state.user = user;
-      state.token = token;
-    },
+    setSession: setSessionReducer,
+    setUser: setUserReducer,
+    setAuth: setAuthReducer,
+    logout: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addMatcher(api.endpoints.login.matchFulfilled, (state, { payload }) => {
-      state.token = payload.token;
-      state.user = payload.user;
-    });
+    builder
+      .addMatcher(authApi.endpoints.user.matchPending, (_state, _action) => {
+        // console.log("me pending", action);
+      })
+      .addMatcher(authApi.endpoints.user.matchFulfilled, setUserReducer)
+      .addMatcher(authApi.endpoints.user.matchRejected, (_state, _action) => {
+        // console.log("me rejected", action);
+      });
   },
 });
 
-export const { setCredentials } = slice.actions;
+export const { setSession, setUser, setAuth, logout } = slice.actions;
 
 export default slice.reducer;
 
-export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const selectAuth = (state: AppState) => state.auth;
+export const selectCurrentUser = (state: AppState) => state.auth.user;
+export const selectSession = (state: AppState) => state.auth.session;
+export const selectIsAuthenticated = (state: AppState) => isAuthenticated(state.auth);

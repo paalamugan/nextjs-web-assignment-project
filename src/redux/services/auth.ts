@@ -1,46 +1,21 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { cacher } from '@/lib/rtkQueryCacheUtils';
 
-import type { RootState } from '../store';
+import { baseApi } from './base';
 
-export interface User {
-  first_name: string;
-  last_name: string;
-}
+const apiWithTags = baseApi.enhanceEndpoints({
+  addTagTypes: [...cacher.defaultTags, 'Auth'],
+});
 
-export interface UserResponse {
-  user: User;
-  token: string;
-}
-
-export interface LoginRequest {
-  username: string;
-  password: string;
-}
-
-export const api = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/',
-    prepareHeaders: (headers, { getState }) => {
-      // By default, if we have a token in the store, let's use that for authenticated requests
-      const { token } = (getState() as RootState).auth;
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+export const authApi = apiWithTags.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<UserResponse, LoginRequest>({
-      query: (credentials) => ({
-        url: 'login',
-        method: 'POST',
-        body: credentials,
-      }),
-    }),
     protected: builder.mutation<{ message: string }, void>({
       query: () => 'protected',
+    }),
+    user: builder.query<any, void>({
+      query: () => '/auth/user',
+      providesTags: cacher.providesList('Auth'),
     }),
   }),
 });
 
-export const { useLoginMutation, useProtectedMutation } = api;
+export const { useProtectedMutation, useUserQuery } = authApi;
