@@ -18,5 +18,6 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "jest.jestCommandLine": "yarn test"
+  "jest.jestCommandLine": "yarn test",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

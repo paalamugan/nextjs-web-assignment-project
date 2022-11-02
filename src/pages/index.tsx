@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import { Meta } from '@/layouts/Meta';
+import { Meta } from '@/components/Meta';
 import { Main } from '@/templates/Main';
 
 const Index = () => {

@@ -8,9 +8,10 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
-    '^@/(.*)$': '<rootDir>/src/$1',
-
+    '^@/msw/(.*)$': '<rootDir>/msw/$1',
+    '^@/test-utils$': '<rootDir>/test-utils/index.tsx',
     '^@/public/(.*)$': '<rootDir>/public/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   setupFilesAfterEnv: ['./jest.setup.js'],
   clearMocks: true,
