@@ -1,4 +1,4 @@
-#  Web OAuth Assignment Project [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40Paalamugan_s)](https://twitter.com/paalamugan_s)
+#  Web OAuth Assignment Project [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40Paalamugan)](https://twitter.com/paalamugan_s)
 
 🚀 Web OAuth ⚡️ Made with developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, Jest, Testing Library, Commitlint, VSCode, Netlify, PostCSS, SCSS, Tailwind CSS.
 
