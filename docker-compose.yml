@@ -16,10 +16,11 @@ services:
     networks:
       - web-oauth-network
       
-  mongodb:
+  web-oauth-mongodb:
     image: mongo
     restart: always
-    container_name: mongodb
+    container_name: web-oauth-mongodb
+    hostname: web-oauth-mongodb
     environment:
       MONGO_INITDB_DATABASE: webOAuthProject
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -28,12 +29,12 @@ services:
       - 27017:27017
     volumes:
       - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-      - mongodb-data:/data/db
+      - web-oauth-mongodb-data:/data/db
     networks:
       - web-oauth-network
 
 volumes:
-  mongodb-data:
+  web-oauth-mongodb-data:
 # Set network as web-oauth-network
 networks:
   web-oauth-network:
