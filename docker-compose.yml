@@ -1,8 +1,9 @@
 version: '3.8'
 services:
-  myorg-web:
-    container_name: myorg-web
-    image: myorg-web:latest
+  web-oauth-app:
+    container_name: web-oauth-app
+    image: web-oauth-app
+    hostname: web-oauth-app
     build:
       context: ./
       target: production
@@ -12,5 +13,27 @@ services:
     restart: always
     ports:
       - 3000:3000
+    networks:
+      - web-oauth-network
+      
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_DATABASE: webOAuthProject
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminpassword
+    ports:
+      - 27017:27017
     volumes:
-      - ./:/app
+      - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongodb-data:/data/db
+    networks:
+      - web-oauth-network
+
+volumes:
+  mongodb-data:
+# Set network as web-oauth-network
+networks:
+  web-oauth-network:

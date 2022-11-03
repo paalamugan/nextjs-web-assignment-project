@@ -1,64 +1,25 @@
-import Link from 'next/link';
+import { Box } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
+import { Fragment } from 'react';
 
+import Footer from '@/components/Footer';
+import Meta from '@/components/Meta';
+import Navbar from '@/components/Navbar';
 import appConfig from '@/utils/appConfig';
 
-type IMainProps = {
-  meta: ReactNode;
+type IMainTemplateProps = {
+  title?: string;
+  description?: string;
   children: ReactNode;
 };
 
-const Main = (props: IMainProps) => (
-  <div className="w-full px-1 text-gray-700 antialiased">
-    {props.meta}
-
-    <div className="mx-auto max-w-screen-md">
-      <div className="border-b border-gray-300">
-        <div className="pt-16 pb-8">
-          <div className="text-3xl font-bold text-gray-900">{appConfig.title}</div>
-          <div className="text-xl">{appConfig.description}</div>
-        </div>
-        <div>
-          <ul className="flex flex-wrap text-xl">
-            <li className="mr-6">
-              <Link href="/" className="border-none text-gray-700 hover:text-gray-900">
-                Home
-              </Link>
-            </li>
-            <li className="mr-6">
-              <Link href="/about/" className="border-none text-gray-700 hover:text-gray-900">
-                About
-              </Link>
-            </li>
-            <li className="mr-6">
-              <a
-                className="border-none text-gray-700 hover:text-gray-900"
-                href="https://github.com/ixartz/Next-js-Boilerplate"
-              >
-                GitHub
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="content py-5 text-xl">{props.children}</div>
-
-      <div className="border-t border-gray-300 py-8 text-center text-sm">
-        © Copyright {new Date().getFullYear()} {appConfig.title}. Powered with{' '}
-        <span role="img" aria-label="Love">
-          ♥
-        </span>{' '}
-        by <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>
-        {/*
-         * PLEASE READ THIS SECTION
-         * We'll really appreciate if you could have a link to our website
-         * The link doesn't need to appear on every pages, one link on one page is enough.
-         * Thank you for your support it'll mean a lot for us.
-         */}
-      </div>
-    </div>
-  </div>
+const MainTemplate = ({ title, description, children }: IMainTemplateProps) => (
+  <Fragment>
+    <Meta title={title || appConfig.title} description={description || appConfig.description} />
+    <Navbar />
+    <Box as="main">{children}</Box>
+    <Footer />
+  </Fragment>
 );
 
-export { Main };
+export default MainTemplate;

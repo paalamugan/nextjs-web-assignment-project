@@ -1,6 +1,6 @@
 import { render, waitFor } from '@/test-utils';
 
-import { Meta } from '..';
+import Meta from '..';
 
 jest.mock('next/head');
 

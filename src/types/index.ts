@@ -1,16 +1,5 @@
-export interface ISession {
-  provider: string | null;
-  token: string | null;
-  expiresAt: number | null;
-}
-
-export interface IUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  avatar: string;
-  role: string;
-}
+import type ISession from './session';
+import type IUser from './user';
 
 export interface IAuthState {
   user: IUser | null;

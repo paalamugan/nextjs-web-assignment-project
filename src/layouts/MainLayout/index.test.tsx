@@ -1,11 +1,11 @@
 import { createStore } from '@/redux/store';
 import { renderWithProvider, screen, waitFor } from '@/test-utils';
 
-import { BaseLayout } from '../BaseLayout';
+import { MainLayout } from '.';
 
 let store: ReturnType<typeof createStore>;
 
-describe('BaseLayout component', () => {
+describe('MainLayout component', () => {
   beforeEach(() => {
     store = createStore();
   });
@@ -13,9 +13,9 @@ describe('BaseLayout component', () => {
   describe('Render method', () => {
     it('should a render base layout', async () => {
       renderWithProvider(
-        <BaseLayout>
+        <MainLayout>
           <h1>Hello World</h1>
-        </BaseLayout>,
+        </MainLayout>,
         { store },
       );
 
