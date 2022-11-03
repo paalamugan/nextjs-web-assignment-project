@@ -47,8 +47,8 @@ Built-in feature from Next.js:
 Run the following command on your local environment:
 
 ```shell
-git clone https://github.com/paalamugan/nextjs-web-oauth-project.git my-project-name
-cd my-project-name
+git clone https://github.com/paalamugan/nextjs-web-oauth-project.git
+cd nextjs-web-oauth-project
 yarn install
 ```
 
