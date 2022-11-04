@@ -4,11 +4,11 @@
 import Index from '@/pages';
 import { renderWithProvider } from '@/test-utils';
 
+// const { getByText } = render(<Index />);
 describe('Index page', () => {
   describe('Render method', () => {
     it('should have h1 tag', () => {
       renderWithProvider(<Index />);
-      // screen.debug();
       // const heading = screen.getByRole('heading', {
       //   name: /Welcome to web oauth/i,
       // });

@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { ChakraProvider } from '@chakra-ui/react';
 import type { RenderOptions } from '@testing-library/react';
 import { render as customRender, screen } from '@testing-library/react';
 import { SessionProvider } from 'next-auth/react';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 
+import { ChakraProvider } from '@/providers/ChakraProvider';
 import { store } from '@/redux/store';
 
 interface StoreRenderOptions extends RenderOptions {
@@ -14,9 +14,9 @@ interface StoreRenderOptions extends RenderOptions {
 
 function ComponentWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <ChakraProvider>
-      <SessionProvider>{children}</SessionProvider>
-    </ChakraProvider>
+    <SessionProvider>
+      <ChakraProvider cookies="">{children}</ChakraProvider>
+    </SessionProvider>
   );
 }
 
