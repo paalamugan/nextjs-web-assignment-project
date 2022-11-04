@@ -1,8 +1,7 @@
-export function isTokenExpired(expiresAt?: number | null) {
-  if (!expiresAt) {
-    return true;
+export const jsonParser = (value: unknown) => {
+  try {
+    return JSON.parse(JSON.stringify(value));
+  } catch (error) {
+    return null;
   }
-  const currentTime = new Date().getTime();
-  const tokenExpires = new Date(expiresAt).getTime();
-  return currentTime > tokenExpires;
-}
+};

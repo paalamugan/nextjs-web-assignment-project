@@ -9,7 +9,7 @@ const getBaseQuery = fetchBaseQuery({
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
-    const { token } = (getState() as AppState).session.auth;
+    const { token } = (getState() as AppState).auth;
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }

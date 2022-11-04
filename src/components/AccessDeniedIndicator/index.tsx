@@ -1,21 +1,25 @@
 import { WarningTwoIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, Stack } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import type { FC } from 'react';
 
-interface IProps {
+interface IAccessDeniedIndicatorProps {
+  title?: string;
   message?: string;
 }
 
-const AccessDeniedIndicator: FC<IProps> = ({ message = 'You need to Sign In to view this content!' }) => {
+const AccessDeniedIndicator: FC<IAccessDeniedIndicatorProps> = ({
+  title = 'Access Denied...',
+  message = 'You need to Sign In to view this content!',
+}) => {
   const iconNode = () => {
-    return <WarningTwoIcon color="purple" boxSize="50px" />;
+    return <WarningTwoIcon color="orange.300" boxSize="50px" />;
   };
 
   const signInButtonNode = () => {
     return (
-      <Link href="/api/auth/signin">
+      <Link href="/auth/signIn" passHref>
         <Button
           onClick={(e) => {
             e.preventDefault();
@@ -29,9 +33,12 @@ const AccessDeniedIndicator: FC<IProps> = ({ message = 'You need to Sign In to v
   };
 
   return (
-    <Flex justifyContent="center" alignItems="center" h="200px">
+    <Flex justifyContent="center" alignItems="center" h="100vh">
       <Stack spacing={4} align="center">
         <Box>{iconNode()}</Box>
+        <Heading as="h2" size="xl" mt={6} pb={4}>
+          {title}
+        </Heading>
         <Box>{signInButtonNode()}</Box>
       </Stack>
     </Flex>

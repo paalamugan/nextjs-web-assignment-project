@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import React from 'react';
 
-import { ErrorPageComponent } from '@/components/Pages';
-import MainTemplate from '@/templates/Main';
+import { ErrorPageComponent } from '@/page-components/Error';
+import UnAuthTemplate from '@/templates/UnAuthTemplate';
 
 interface IErrorPageProps {
   statusCode: number;
@@ -10,9 +10,9 @@ interface IErrorPageProps {
 
 const ErrorPage: NextPage<IErrorPageProps> & { requireAuth: boolean } = ({ statusCode }) => {
   return (
-    <MainTemplate title="Error Page">
-      <ErrorPageComponent statusCode={statusCode} />
-    </MainTemplate>
+    <UnAuthTemplate metaTitle="Authentication Error">
+      <ErrorPageComponent statusCode={statusCode} title="Authentication Failed" />
+    </UnAuthTemplate>
   );
 };
 

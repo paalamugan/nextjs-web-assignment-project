@@ -1,16 +1,18 @@
 import { env } from 'process';
 
 const appConfig = {
+  siteUrl: env.SITE_URL || 'http://localhost:3000',
   siteName: 'Web OAuth',
   title: 'Web OAuth Project',
   description:
-    'Web OAuth Project using Tailwind CSS, Next.js, NextAuth, React, Redux, Redux Toolkit, TypeScript, and more.',
+    'Web OAuth Project using Chakra UI, Next.js, NextAuth, React, Redux, Redux Toolkit, TypeScript, and more.',
   locale: 'en',
   apiBaseUrl: '',
-  jwtSecretKey: env.JWT_SECRET_KEY || 'jwt-secret-key',
+  reqresApiBaseUrl: env.REGRES_API_BASE_URL || 'https://reqres.in/api',
   googleClientId: env.GOOGLE_CLIENT_ID,
   googleClientSecret: env.GOOGLE_CLIENT_SECRET,
   mongodbUri: env.MONGODB_URI,
+  jwtSecretKey: env.JWT_SECRET_KEY || 'secret',
 } as const;
 
 export default appConfig;

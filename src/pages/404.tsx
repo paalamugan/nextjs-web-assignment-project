@@ -1,12 +1,24 @@
 import type { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
 
-import { ErrorPageComponent } from '@/components/Pages';
-import MainTemplate from '@/templates/Main';
+import { ErrorPageComponent } from '@/page-components/Error';
+import MainTemplate from '@/templates/MainTemplate';
+import UnAuthTemplate from '@/templates/UnAuthTemplate';
 
 const Custom404Page: NextPage & { requireAuth: boolean } = () => {
+  const { data: session } = useSession();
+
+  if (!session) {
+    return (
+      <UnAuthTemplate metaTitle="404">
+        <ErrorPageComponent statusCode={404} title="Page Not Found" />
+      </UnAuthTemplate>
+    );
+  }
+
   return (
-    <MainTemplate title="Error Page">
-      <ErrorPageComponent statusCode={404} />
+    <MainTemplate metaTitle="404 Page">
+      <ErrorPageComponent statusCode={404} title="Page Not Found" />
     </MainTemplate>
   );
 };

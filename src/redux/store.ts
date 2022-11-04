@@ -2,16 +2,18 @@ import type { ConfigureStoreOptions } from '@reduxjs/toolkit';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
-import authReducer from './features/auth/authSlice';
+import { authSlice } from './features/auth';
+import { usersSlice } from './features/users';
 import { baseApi } from './services/base';
 
 export const createStore = (options?: ConfigureStoreOptions['preloadedState'] | undefined) => {
   return configureStore({
     reducer: combineReducers({
       [baseApi.reducerPath]: baseApi.reducer,
-      auth: authReducer,
+      [usersSlice.name]: usersSlice.reducer,
+      [authSlice.name]: authSlice.reducer,
     }),
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([baseApi.middleware]),
     devTools: process.env.NODE_ENV !== 'production',
     ...options,
   });

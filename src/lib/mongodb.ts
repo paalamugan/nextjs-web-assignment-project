@@ -1,4 +1,5 @@
 // This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
+import type { Db } from 'mongodb';
 import { MongoClient } from 'mongodb';
 
 import appConfig from '@/utils/appConfig';
@@ -11,30 +12,52 @@ declare global {
 
 const { mongodbUri } = appConfig;
 
-let client;
 // eslint-disable-next-line import/no-mutable-exports
-let clientPromise: Promise<MongoClient>;
+let mongoClientPromise: Promise<MongoClient>;
 
 if (!mongodbUri) {
   throw new Error('Please add your MONGODB_URI to .env.local');
 }
 
-console.log('MONGODB_URI', mongodbUri);
-
 if (process.env.NODE_ENV === 'development') {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   if (!global.mongoClientPromise) {
-    client = new MongoClient(mongodbUri);
+    const client = new MongoClient(mongodbUri);
     global.mongoClientPromise = client.connect();
   }
-  clientPromise = global.mongoClientPromise;
+  mongoClientPromise = global.mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(mongodbUri);
-  clientPromise = client.connect();
+  const client = new MongoClient(mongodbUri);
+  mongoClientPromise = client.connect();
 }
 
 // Export a module-scoped MongoClient promise. By doing this in a
 // separate module, the client can be shared across functions.
-export default clientPromise;
+export { mongoClientPromise };
+
+export const getDatabaseInstance = async (databaseName?: string) => {
+  const client = await global.mongoClientPromise;
+  const db = client.db(databaseName);
+  return db;
+};
+
+export const getDatabaseStatus = async (db: Db) => {
+  try {
+    const status = await db.command({ ping: 1 });
+    return status.ok === 1;
+  } catch (err) {
+    return false;
+  }
+};
+
+getDatabaseInstance()
+  .then(() => {
+    // eslint-disable-next-line no-console
+    console.log('Mongodb Database connection is successfully connected!');
+  })
+  .catch((err) => {
+    // eslint-disable-next-line no-console
+    console.error(`✗ MongoDB Connection Error. Please make sure MongoDB is running. -> ${err.message}`);
+  });

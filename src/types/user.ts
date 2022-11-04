@@ -1,6 +1,8 @@
 export default interface IUser {
-  id: number;
+  _id: string;
+  id?: string;
   name: string;
   image: string;
   email: string;
+  emailVerified: boolean | null;
 }

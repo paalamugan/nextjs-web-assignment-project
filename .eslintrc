@@ -69,7 +69,9 @@
             "props": true,
             "ignorePropertyModificationsFor": [
               "session",
-              "token"
+              "token",
+              "req",
+              "res"
             ]
           }
         ],
@@ -77,7 +79,7 @@
           "error",
           {
             "allow": [
-              "_mongoClientPromise"
+              "_id"
             ]
           }
         ]

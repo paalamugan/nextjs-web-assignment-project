@@ -1,1 +1,28 @@
-export * from './authSlice';
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable no-param-reassign */
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+import type { AppState } from '@/redux/store';
+
+interface IInitialState {
+  token: string | null | undefined;
+}
+
+const initialState: IInitialState = {
+  token: null,
+};
+
+export const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    setToken: (state, action: PayloadAction<IInitialState['token']>) => {
+      state.token = action.payload;
+    },
+  },
+});
+
+export const { setToken } = authSlice.actions;
+
+export const selectToken = (state: AppState) => state.auth.token;

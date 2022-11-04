@@ -1,23 +1,30 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { ChakraProvider } from '@chakra-ui/react';
 import type { RenderOptions } from '@testing-library/react';
 import { render as customRender, screen } from '@testing-library/react';
+import { SessionProvider } from 'next-auth/react';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 
-import type { store } from '@/redux/store';
+import { store } from '@/redux/store';
 
 interface StoreRenderOptions extends RenderOptions {
   store: typeof store;
 }
 
 function ComponentWrapper({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <ChakraProvider>
+      <SessionProvider>{children}</SessionProvider>
+    </ChakraProvider>
+  );
 }
 
-function renderWithProvider(ui: React.ReactElement, renderOptions: StoreRenderOptions) {
+function renderWithProvider(ui: React.ReactElement, renderOptions?: StoreRenderOptions) {
+  const storeValue = renderOptions?.store ?? store;
   function StoreWrapper({ children }: { children: React.ReactNode }) {
     return (
-      <Provider store={renderOptions.store}>
+      <Provider store={storeValue}>
         <ComponentWrapper>{children}</ComponentWrapper>
       </Provider>
     );

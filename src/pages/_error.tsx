@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import React from 'react';
 
-import { ErrorPageComponent } from '@/components/Pages';
-import MainTemplate from '@/templates/Main';
+import { ErrorPageComponent } from '@/page-components/Error';
+import MainTemplate from '@/templates/MainTemplate';
 
 interface IErrorPageProps {
   statusCode: number;
@@ -10,7 +10,7 @@ interface IErrorPageProps {
 
 const ErrorPage: NextPage<IErrorPageProps> = ({ statusCode }) => {
   return (
-    <MainTemplate title="Error Page">
+    <MainTemplate metaTitle="Error Page">
       <ErrorPageComponent statusCode={statusCode} />
     </MainTemplate>
   );
