@@ -7,12 +7,12 @@ import { useCustomUsersQuery } from '@/hooks';
 interface IUsersComponentProps {}
 
 export const UsersComponent: FC<IUsersComponentProps> = () => {
-  const { users, isLoading } = useCustomUsersQuery();
+  const { data, isLoading } = useCustomUsersQuery();
 
   return (
     <Stack my={6}>
-      <UsersGridComponent>
-        <UsersResultComponent isLoading={isLoading} users={users} />
+      <UsersGridComponent totalCount={data.totalCount}>
+        <UsersResultComponent isLoading={isLoading} users={data.users} />
       </UsersGridComponent>
     </Stack>
   );

@@ -3,8 +3,14 @@ import { useEffect, useState } from 'react';
 import { getAllUsers } from '@/api-helper';
 import type { IUserApiResponse } from '@/types/ApiResponse';
 
+const initialData: IUserApiResponse = {
+  users: [],
+  totalCount: 0,
+  count: 0,
+};
+
 export const useCustomUsersQuery = () => {
-  const [users, setUsers] = useState<IUserApiResponse[] | undefined>();
+  const [data, setData] = useState<IUserApiResponse>(initialData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -12,13 +18,13 @@ export const useCustomUsersQuery = () => {
     const getUsers = async () => {
       setIsLoading(true);
       try {
-        const data = await getAllUsers();
+        const result = await getAllUsers();
         if (mounted) {
-          setUsers(data);
+          setData(result);
           setIsLoading(false);
         }
       } catch (err) {
-        setUsers([]);
+        setData(initialData);
         setIsLoading(false);
       }
     };
@@ -28,5 +34,5 @@ export const useCustomUsersQuery = () => {
     };
   }, []);
 
-  return { users, isLoading };
+  return { data, isLoading };
 };

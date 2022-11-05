@@ -8,9 +8,9 @@ export const getAllUsersPerPage = async (page = 1) => {
   return result;
 };
 
-const getFilteredUsers = (users: IUserApiResponse[]) => {
-  const filteredFirstNameUsers: IUserApiResponse[] = [];
-  const filteredLastNameUsers: IUserApiResponse[] = [];
+const getFilteredUsers = (users: IUserApiResponse['users']) => {
+  const filteredFirstNameUsers: IUserApiResponse['users'] = [];
+  const filteredLastNameUsers: IUserApiResponse['users'] = [];
 
   users.forEach((user) => {
     if (/^G(.+)/i.test(user.first_name)) {
@@ -27,14 +27,18 @@ const getFilteredUsers = (users: IUserApiResponse[]) => {
   return [...sortedFirstNameUsers, ...sortedLastNameUsers];
 };
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (): Promise<IUserApiResponse> => {
   try {
     const result = await getAllUsersPerPage();
     const promises = Array.from({ length: result.total_pages - 1 }, (_, i) => getAllUsersPerPage(i + 2));
     const results = await Promise.all(promises);
-    const users: IUserApiResponse[] = results.reduce((acc, cur) => [...acc, ...cur.data], result.data);
+    const users: IUserApiResponse['users'] = results.reduce((acc, cur) => [...acc, ...cur.data], result.data);
     const filteredUsers = getFilteredUsers(users);
-    return filteredUsers;
+    return {
+      users: filteredUsers,
+      count: filteredUsers.length,
+      totalCount: result.total,
+    };
   } catch (err) {
     throw new CustomError('Unable to fetch users.');
   }

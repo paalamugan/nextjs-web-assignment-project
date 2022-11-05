@@ -7,16 +7,19 @@ import { usersApi } from '@/redux/services/users';
 import type { AppState } from '@/redux/store';
 import type { IUserApiResponse } from '@/types/ApiResponse';
 
-const setUsersReducer = (state: IInitialState, action: PayloadAction<IInitialState['users']>) => {
-  state.users = action.payload;
+const setUsersReducer = (state: IInitialState, action: PayloadAction<IInitialState['result']>) => {
+  state.result = action.payload;
 };
-
 interface IInitialState {
-  users: IUserApiResponse[];
+  result: IUserApiResponse;
 }
 
 const initialState: IInitialState = {
-  users: [],
+  result: {
+    users: [],
+    totalCount: 0,
+    count: 0,
+  },
 };
 
 export const usersSlice = createSlice({
@@ -39,4 +42,4 @@ export const usersSlice = createSlice({
 
 export const { setUsers } = usersSlice.actions;
 
-export const selectUsers = (state: AppState) => state.users.users;
+export const selectUsers = (state: AppState) => state.users.result;

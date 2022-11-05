@@ -7,7 +7,7 @@ import { UserCardBox, UserCardBoxSkeleton } from './UserCardBox';
 
 interface IUsersResultComponentProps {
   isLoading: boolean;
-  users: IUserApiResponse[] | undefined;
+  users?: IUserApiResponse['users'];
 }
 
 const SkeletonLoaderContainer = () => {

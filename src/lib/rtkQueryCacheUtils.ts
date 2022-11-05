@@ -87,10 +87,18 @@ export const invalidatesList =
   (): readonly [CacheItem<T, 'LIST'>] =>
     [{ type, id: 'LIST' }] as const;
 
-type InnerProvidesNestedList<T> = <Results extends { data: { id: unknown }[] }, Error extends FetchBaseQueryError>(
+type KeySet<T extends string> = {
+  [K in T]: { id: unknown }[];
+};
+
+type ResultKeySet<Results extends KeySet<string>, TProperty extends string> = {
+  [K in keyof Results]: K extends TProperty ? Results[K] : never;
+};
+
+type InnerProvidesNestedList<T, T2 extends string> = <Results extends KeySet<T2>, Error extends FetchBaseQueryError>(
   results: Results | undefined,
   error: Error | undefined,
-) => CacheList<T, Results['data'][number]['id']>;
+) => CacheList<T, ResultKeySet<Results, T2>[T2][number]['id']>;
 
 /**
  * Similar to `providesList`, but for data located at a nested property,
@@ -98,17 +106,20 @@ type InnerProvidesNestedList<T> = <Results extends { data: { id: unknown }[] }, 
  * The property is hard coded, so re-create a version of this function based
  * on a data shape your API returns for best results.
  */
-export const providesNestedList =
-  <T extends string>(type: T): InnerProvidesNestedList<T> =>
-  (results, error) => {
+export const providesNestedList = <T extends string, T2 extends 'data' | string>(
+  type: T,
+  responseProperty: T2 = 'data' as T2,
+): InnerProvidesNestedList<T, T2> => {
+  return (results, error) => {
     // is result available?
     if (results) {
       // successful query
-      return [{ type, id: 'LIST' }, ...results.data.map(({ id }) => ({ type, id } as const))];
+      return [{ type, id: 'LIST' }, ...results[responseProperty].map(({ id }) => ({ type, id } as const))];
     }
     // Received an error, include an error cache item to the cache list
     return concatErrorCache([{ type, id: 'LIST' }], error);
   };
+};
 
 /**
  * HOF to create an entity cache for a single item using the query argument as the ID.

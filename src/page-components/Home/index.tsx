@@ -1,5 +1,6 @@
 import { Heading, Stack, Text } from '@chakra-ui/react';
 import type { FC } from 'react';
+import { useState } from 'react';
 
 import { UsersGridComponent, UsersQueryComponent } from '@/components/UsersComponent';
 import appConfig from '@/utils/appConfig';
@@ -7,6 +8,7 @@ import appConfig from '@/utils/appConfig';
 interface IHomeComponentProps {}
 
 export const HomeComponent: FC<IHomeComponentProps> = () => {
+  const [totalCount, setTotalCount] = useState(0);
   return (
     <Stack my={6}>
       <Heading
@@ -22,8 +24,8 @@ export const HomeComponent: FC<IHomeComponentProps> = () => {
           {appConfig.siteName}
         </Text>
       </Heading>
-      <UsersGridComponent>
-        <UsersQueryComponent />
+      <UsersGridComponent totalCount={totalCount}>
+        <UsersQueryComponent setTotalCount={setTotalCount} />
       </UsersGridComponent>
     </Stack>
   );

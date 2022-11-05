@@ -31,7 +31,7 @@ export const UserCardBoxSkeleton: FC = () => {
   );
 };
 
-export const UserCardBox: FC<IUserApiResponse> = ({ first_name, last_name, avatar, email }) => {
+export const UserCardBox: FC<IUserApiResponse['users'][0]> = ({ first_name, last_name, avatar, email }) => {
   const fullName = `${first_name} ${last_name}`;
   return (
     <Stack

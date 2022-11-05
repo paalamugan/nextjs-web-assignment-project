@@ -9,11 +9,12 @@ const apiWithTags = baseApi.enhanceEndpoints({
 
 export const usersApi = apiWithTags.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<IUserApiResponse[], void>({
+    getUsers: builder.query<IUserApiResponse, void>({
       query: () => '/api/users',
-      providesTags: cacher.providesList('Users'),
+      providesTags: cacher.providesNestedList('Users', 'users'),
     }),
   }),
+  overrideExisting: true,
 });
 
 export const { useGetUsersQuery } = usersApi;
