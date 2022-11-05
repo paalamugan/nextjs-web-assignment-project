@@ -17,12 +17,12 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setToken: (state, action: PayloadAction<IInitialState['token']>) => {
+    setCurrentToken: (state, action: PayloadAction<IInitialState['token']>) => {
       state.token = action.payload;
     },
   },
 });
 
-export const { setToken } = authSlice.actions;
+export const { setCurrentToken } = authSlice.actions;
 
-export const selectToken = (state: AppState) => state.auth.token;
+export const selectCurrentToken = (state: AppState) => state.auth.token;

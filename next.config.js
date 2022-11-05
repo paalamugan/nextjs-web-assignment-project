@@ -12,6 +12,14 @@ const nextConfig = {
     dirs: ["."],
   },
   poweredByHeader: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+    ],
+  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

@@ -39,4 +39,5 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
   };
 };
+
 export default ProfilePage;

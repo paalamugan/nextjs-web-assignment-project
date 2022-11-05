@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import AccessDeniedIndicator from '@/components/AccessDeniedIndicator';
 import { useAppDispatch } from '@/hooks';
-import { setToken } from '@/redux/features/auth';
+import { setCurrentToken } from '@/redux/features/auth';
 
 interface IAuthLayout {
   children: React.ReactNode;
@@ -36,7 +36,7 @@ export const AuthLayout: FC<IAuthLayout> = ({ children, isLoginRedirect }) => {
     return <AccessDeniedIndicator />;
   }
 
-  dispatch(setToken(session?.token));
+  dispatch(setCurrentToken(session?.token));
 
   return <>{children}</>;
 };
