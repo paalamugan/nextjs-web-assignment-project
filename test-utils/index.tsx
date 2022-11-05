@@ -1,16 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import type { RenderOptions } from '@testing-library/react';
-import { render as customRender, screen } from '@testing-library/react';
+import { render as rtlRender, screen } from '@testing-library/react';
 import { SessionProvider } from 'next-auth/react';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 
 import { ChakraProvider } from '@/providers/ChakraProvider';
-import { store } from '@/redux/store';
-
-interface StoreRenderOptions extends RenderOptions {
-  store: typeof store;
-}
+import { createStore } from '@/redux/store';
 
 function ComponentWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -20,24 +16,17 @@ function ComponentWrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
-function renderWithProvider(ui: React.ReactElement, renderOptions?: StoreRenderOptions) {
-  const storeValue = renderOptions?.store ?? store;
+function render(ui: React.ReactElement, renderOptions?: RenderOptions) {
+  const store = createStore();
   function StoreWrapper({ children }: { children: React.ReactNode }) {
     return (
-      <Provider store={storeValue}>
+      <Provider store={store}>
         <ComponentWrapper>{children}</ComponentWrapper>
       </Provider>
     );
   }
-  return customRender(ui, {
+  return rtlRender(ui, {
     wrapper: StoreWrapper,
-    ...renderOptions,
-  });
-}
-
-function render(ui: React.ReactElement, renderOptions?: RenderOptions) {
-  return customRender(ui, {
-    wrapper: ComponentWrapper,
     ...renderOptions,
   });
 }
@@ -45,7 +34,6 @@ function render(ui: React.ReactElement, renderOptions?: RenderOptions) {
 export * from '@testing-library/react';
 
 export { render };
-export { renderWithProvider };
 
 export type TestCaseMethod = 'get' | 'find' | 'query';
 

@@ -131,3 +131,10 @@ With the plugins installed on your VSCode, ESLint and Prettier can automatically
 
 Pro tips: if you need a project wide type checking with TypeScript, you can run a build with <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> on Mac.
 
+### Tips
+
+- Generate base64 secret key with below command
+```sh
+openssl rand -base64 32
+```
+

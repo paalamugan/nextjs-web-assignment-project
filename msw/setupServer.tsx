@@ -1,6 +1,6 @@
 import { mockServer } from './server';
 
-const setupServer = () => {
+const setupMockServer = () => {
   const { server, state } = mockServer();
 
   // Enable API mocking before tests.
@@ -15,4 +15,4 @@ const setupServer = () => {
   return { server, state };
 };
 
-export default setupServer;
+export default setupMockServer;

@@ -1,53 +1,12 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
-import { Box, Flex, HStack, IconButton, Link, Stack, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, HStack, IconButton, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import type { NextComponentType } from 'next';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import type { ReactNode } from 'react';
 
+import { navLinks } from '@/constants/navLinks';
+
+import { NavLink } from './NavLink';
 import { ProfileMenu } from './ProfileMenu';
 import { ThemeToggleButtonNode } from './ThemeToggleButtonNode';
-
-const links = [
-  {
-    id: 'home',
-    label: 'Home',
-    href: '/',
-  },
-  {
-    id: 'users',
-    label: 'Users',
-    href: '/users',
-  },
-  {
-    id: 'profile',
-    label: 'Profile',
-    href: '/profile',
-  },
-];
-
-const NavLink = ({ children, href }: { children: ReactNode; href: string }) => {
-  const router = useRouter();
-  const active = router.pathname === href;
-  return (
-    <Link
-      as={NextLink}
-      px={2}
-      py={1}
-      rounded={'md'}
-      fontWeight={'500'}
-      color={useColorModeValue(active ? 'white' : 'gray.600', active ? 'white' : 'gray.200')}
-      bg={active ? 'primary' : ''}
-      _hover={{
-        textDecoration: 'none',
-        bg: useColorModeValue(active ? 'primary' : 'gray.200', active ? 'primary' : 'gray.700'),
-      }}
-      href={href}
-    >
-      {children}
-    </Link>
-  );
-};
 
 const Header: NextComponentType = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -58,7 +17,7 @@ const Header: NextComponentType = () => {
         <IconButton
           size={'md'}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-          aria-label={'Open Menu'}
+          aria-label={isOpen ? 'Close Menu' : 'Open Menu'}
           display={{ md: 'none' }}
           onClick={isOpen ? onClose : onOpen}
         />
@@ -67,7 +26,7 @@ const Header: NextComponentType = () => {
             Web OAuth Logo
           </Text>
           <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-            {links.map((link) => (
+            {navLinks.map((link) => (
               <NavLink key={link.id} href={link.href}>
                 {link.label}
               </NavLink>
@@ -84,7 +43,7 @@ const Header: NextComponentType = () => {
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as={'nav'} spacing={4}>
-            {links.map((link) => (
+            {navLinks.map((link) => (
               <NavLink key={link.id} href={link.href}>
                 {link.label}
               </NavLink>

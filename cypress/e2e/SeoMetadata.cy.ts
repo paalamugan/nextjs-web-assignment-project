@@ -1,6 +1,6 @@
 describe('Seo metadata', () => {
   describe('Verify SEO Metadata', () => {
-    it('should render SEO metadata on Index page', () => {
+    it('should render SEO metadata on Home page', () => {
       cy.visit('/');
 
       // The Index page should have a page title
@@ -10,8 +10,8 @@ describe('Seo metadata', () => {
       cy.get('head meta[name="description"]').invoke('attr', 'content').should('not.be.empty');
     });
 
-    it('should render SEO metadata on About page', () => {
-      cy.visit('/about');
+    it('should render SEO metadata on Users page', () => {
+      cy.visit('/users');
 
       // The About page should have a page title
       cy.title().should('not.be.empty');
