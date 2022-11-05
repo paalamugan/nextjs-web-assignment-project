@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'development') {
 export { mongoClientPromise };
 
 export const getDatabaseInstance = async (databaseName?: string) => {
-  const client = await global.mongoClientPromise;
+  const client = await mongoClientPromise;
   const db = client.db(databaseName);
   return db;
 };
