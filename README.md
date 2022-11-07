@@ -141,16 +141,6 @@ Open http://localhost:3000 with your favorite browser to see your project.
 └── tsconfig.json                   # TypeScript configuration
 ```
 
-### Customization
-
-You can easily configure Next js Boilerplate. Please change the following file:
-
-- `public/apple-touch-icon.png`, `public/favicon.ico`, `public/favicon-16x16.png` and `public/favicon-32x32.png`: your website favicon, you can generate from https://favicon.io/favicon-converter/
-- `src/styles/global.scss`: your SCSS file for global styles
-- `src/utils/appConfig.ts`: configuration file
-- `src/templates/MainTemplate/index.tsx`: default main template for authenticated user
-- `src/templates/UnAuthTemplate/index.tsx`: UnAuth template for unauthenticated user
-
 ### Deploy to production
 
 You can see the results locally in production mode with:
