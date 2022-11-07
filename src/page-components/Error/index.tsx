@@ -37,12 +37,12 @@ export const ErrorPageComponent: FC<IErrorPageComponentProps> = ({ statusCode, m
           <Heading textAlign="center">{title || appConfig.siteName}</Heading>
           <Text fontSize="xl" lineHeight="tall" textAlign="center">
             {statusCode ? `An error ${statusCode} occurred on server` : 'An error occurred on client'}
-            {!!message && (
-              <Text color={'gray.500'} fontSize="md" pb="5" pt="1">
-                {message}
-              </Text>
-            )}
           </Text>
+          {!!message && (
+            <Text color={'gray.500'} fontSize="md" pb="5" pt="1">
+              {message}
+            </Text>
+          )}
           <Box>
             <Stack isInline align="center" justifyContent="center">
               <Box>

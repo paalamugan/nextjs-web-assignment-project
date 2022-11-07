@@ -20,7 +20,7 @@ const SignInPage: NextPage = () => {
   const router = useRouter();
   const { error } = router.query;
 
-  const isAuthError = error === ('OAuthCallback' || 'Callback');
+  const isAuthError = error === 'OAuthCallback' || error === 'Callback';
   const title = isAuthError ? 'Authentication Error' : 'Sign In';
   const Component = isAuthError ? OAuthCallbackErrorComponent : SignInPageComponent;
 

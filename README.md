@@ -53,9 +53,9 @@ cd nextjs-web-oauth-project
 yarn install
 ```
 
-- Environment configuration before we run the application
+**Environment configuration before we run the application**
 
-Create `.env.local` file in the root directory and add the following environment variables:
+- Create `.env.local` file in the root directory and add the following environment variables:
 
 ```shell
 SITE_URL=http://localhost:3000 # http://localhost:3000
@@ -63,17 +63,25 @@ REGRES_API_BASE_URL=https://reqres.in/api # https://reqres.in/api
 NEXTAUTH_SECRET=secret # random string
 JWT_SECRET_KEY=secret # random string
 NEXTAUTH_DEBUG=false # true or false
-MONGODB_URI=mongodb://localhost:27017/web-oauth # mongodb://localhost:27017/web-oauth
+MONGODB_URI=mongodb://admin:adminpassword@localhost:27017/web-oauth # mongodb://admin:adminpassword@localhost:27017/web-oauth
 GOOGLE_CLIENT_ID=<replace-your-google-client-id> # google client id
 GOOGLE_CLIENT_SECRET=<replace-your-google-client-secret> # google client secret
 ```
 
 (or) 
 
-Copy .env.example to .env.local and replace the values like above.
+- Copy .env.example to .env.local and replace the values like above.
 
 ```shell
 cp -rf .env.example .env.local
+```
+
+**Make sure you have MongoDB installed and running on your local environment.**
+
+- If not then, please use the below command to run mongodb server before run the `yarn dev`.
+
+```shell
+  docker-compose up -d web-oauth-mongodb
 ```
 
 Then, you can run locally in development mode with live reload:
