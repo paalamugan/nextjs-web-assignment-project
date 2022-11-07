@@ -55,7 +55,7 @@ yarn install
 
 **Environment configuration before we run the application**
 
-1. Option 1
+- Option 1
 
   - Create `.env.local` file in the root directory and add the following environment variables:
 
@@ -70,7 +70,7 @@ yarn install
   GOOGLE_CLIENT_SECRET=<replace-your-google-client-secret> # google client secret
   ```
 
-2. Option 2 
+- Option 2 
 
   - Copy .env.example to .env.local and replace the values like above.
 
