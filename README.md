@@ -68,7 +68,7 @@ GOOGLE_CLIENT_ID=<replace-your-google-client-id> # google client id
 GOOGLE_CLIENT_SECRET=<replace-your-google-client-secret> # google client secret
 ```
 
-(or) 
+(OR) 
 
 - Copy .env.example to .env.local and replace the values like above.
 
@@ -176,19 +176,13 @@ Now, Our app is ready to be deployed. All generated files are located at `out` f
 
 ### Testing
 
-All tests are colocated with the source code inside the same directory. So, it makes it easier to find them. Unfortunately, it is not possible with the `pages` folder which is used by Next.js for routing. So, what is why we have a `pages.test` folder to write tests from files located in `pages` folder.
-
-### Deploy to Netlify
-
-Clone this repository on own GitHub account and deploy to Netlify:
-
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ixartz/Next-js-Boilerplate)
+All tests are co-located with the source code inside the same directory. So, it makes it easier to find them. Unfortunately, it is not possible with the `pages` folder which is used by Next.js for routing. So, what is why we have a `pages.test` folder to write tests from files located in `pages` folder.
 
 ### Deploy to Vercel
 
-Deploy this Next JS Boilerplate on Vercel in one click:
+Deploy this Web OAuth on Vercel in one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fixartz%2FNext-js-Boilerplate)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/paalamugan/nextjs-web-oauth-project)
 
 ### VSCode information (optional)
 
