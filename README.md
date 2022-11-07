@@ -55,6 +55,8 @@ yarn install
 
 **Environment configuration before we run the application**
 
+1. Option 1
+
 - Create `.env.local` file in the root directory and add the following environment variables:
 
 ```shell
@@ -68,7 +70,7 @@ GOOGLE_CLIENT_ID=<replace-your-google-client-id> # google client id
 GOOGLE_CLIENT_SECRET=<replace-your-google-client-secret> # google client secret
 ```
 
-(OR) 
+2. Option 2 
 
 - Copy .env.example to .env.local and replace the values like above.
 
@@ -90,23 +92,24 @@ Then, you can run locally in development mode with live reload:
 yarn dev
 ```
 
-(OR)
+Open http://localhost:3000 with our favorite browser to see our project.
 
-Other available support that we can run the application for local testing without live reload using docker command:
+### Run on application using docker-compose cli(Optional)
 
-Before that, We need to have docker installed in our local machine, if not please install it from [here](https://docs.docker.com/get-docker/).
+Before run the below command, We need to have docker installed in our local machine, if not please install it from [here](https://docs.docker.com/get-docker/).
 
 ```shell
   docker-compose up -d
 ```
 
-- Run Docker Compose with your custom environment file path using below command, by default it will use `.env` file or environment variables that we used inside `docker-compose.yml` file.
+- Run Docker Compose with our custom environment file path using below command, by default it will use `.env` file or environment variables that we used inside `docker-compose.yml` file.
 
 ```shell
 docker-compose --env-file .env.local up -d
 ```
 
-Open http://localhost:3000 with your favorite browser to see your project.
+
+### Folder Structure
 
 ```shell
 .
@@ -158,13 +161,11 @@ yarn build
 yarn start
 ```
 
-Dockerfile is also available for production deployment. You can build the image with:
+Dockerfile is available for production deployment. You can build the image with:
 
 ```shell
 docker build -t web-oauth-app:latest .
 ```
-
-The generated HTML and SCSS files are minified (built-in feature from Next js). It will also removed unused CSS from [Tailwind CSS](https://tailwindcss.com).
 
 You can create an optimized production build with:
 
