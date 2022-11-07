@@ -11,7 +11,7 @@ export const UsersComponent: FC<IUsersComponentProps> = () => {
 
   return (
     <Stack my={6}>
-      <UsersGridComponent totalCount={data.totalCount}>
+      <UsersGridComponent totalCount={data.totalCount} isLoading={isLoading}>
         <UsersResultComponent isLoading={isLoading} users={data.users} />
       </UsersGridComponent>
     </Stack>

@@ -1,14 +1,15 @@
 import { Heading, Stack, Text } from '@chakra-ui/react';
 import type { FC } from 'react';
-import { useState } from 'react';
 
-import { UsersGridComponent, UsersQueryComponent } from '@/components/UsersComponent';
+import { UsersGridComponent, UsersResultComponent } from '@/components/UsersComponent';
+import { useGetUsersQuery } from '@/redux/services/users';
 import appConfig from '@/utils/appConfig';
 
 interface IHomeComponentProps {}
 
 export const HomeComponent: FC<IHomeComponentProps> = () => {
-  const [totalCount, setTotalCount] = useState(0);
+  const { data, isLoading } = useGetUsersQuery();
+
   return (
     <Stack my={6}>
       <Heading
@@ -24,8 +25,8 @@ export const HomeComponent: FC<IHomeComponentProps> = () => {
           {appConfig.siteName}
         </Text>
       </Heading>
-      <UsersGridComponent totalCount={totalCount}>
-        <UsersQueryComponent setTotalCount={setTotalCount} />
+      <UsersGridComponent totalCount={data?.totalCount || 0} isLoading={isLoading}>
+        <UsersResultComponent isLoading={isLoading} users={data?.users} />;
       </UsersGridComponent>
     </Stack>
   );
