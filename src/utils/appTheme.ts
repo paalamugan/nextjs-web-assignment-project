@@ -1,9 +1,11 @@
 import { extendTheme } from '@chakra-ui/react';
 
-const theme = extendTheme({
+import { roboto } from '@/fonts/roboto';
+
+const appTheme = extendTheme({
   fonts: {
-    body: '"Inter", "Roboto", sans-serif',
-    heading: '"Inter", "Roboto", sans-serif',
+    body: roboto.style.fontFamily,
+    heading: roboto.style.fontFamily,
   },
   colors: {
     primary: '#209cee',
@@ -14,4 +16,4 @@ const theme = extendTheme({
   },
 });
 
-export default theme;
+export default appTheme;

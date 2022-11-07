@@ -5,7 +5,7 @@ import { ErrorPageComponent } from '@/page-components/Error';
 import MainTemplate from '@/templates/MainTemplate';
 import UnAuthTemplate from '@/templates/UnAuthTemplate';
 
-const Custom404Page: NextPage & { requireAuth: boolean } = () => {
+const Custom404Page: NextPage = () => {
   const { data: session } = useSession();
 
   if (!session) {
@@ -22,7 +22,5 @@ const Custom404Page: NextPage & { requireAuth: boolean } = () => {
     </MainTemplate>
   );
 };
-
-Custom404Page.requireAuth = false;
 
 export default Custom404Page;

@@ -2,39 +2,34 @@ import '../styles/global.scss';
 
 import type { AppProps } from 'next/app';
 import type { Session } from 'next-auth';
-import { SessionProvider } from 'next-auth/react';
 
 import { AuthLayout } from '@/layouts/AuthLayout';
 import { MainLayout } from '@/layouts/MainLayout';
-import { ChakraProvider } from '@/providers/ChakraProvider';
 
 interface MyAppProps<TAppProps> extends AppProps<TAppProps> {
   Component: AppProps['Component'] & { requireAuth?: boolean };
 }
 
-interface IPageProps {
+interface IMyAppPageProps {
   isLoginRedirect?: boolean;
   session: Session;
   cookies: string;
 }
 
-const MyApp = ({ Component, pageProps }: MyAppProps<IPageProps>) => {
-  const requireAuth = Component.requireAuth != null ? Component.requireAuth : true;
+const MyApp = ({ Component, pageProps }: MyAppProps<IMyAppPageProps>) => {
   return (
-    <SessionProvider session={pageProps.session}>
-      <ChakraProvider cookies={pageProps.cookies}>
-        <MainLayout>
-          {requireAuth ? (
-            <AuthLayout isLoginRedirect={pageProps.isLoginRedirect}>
-              <Component {...pageProps} />
-            </AuthLayout>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </MainLayout>
-      </ChakraProvider>
-    </SessionProvider>
+    <MainLayout session={pageProps.session} cookies={pageProps.cookies}>
+      {Component.requireAuth ? (
+        <AuthLayout isLoginRedirect={pageProps.isLoginRedirect}>
+          <Component {...pageProps} />
+        </AuthLayout>
+      ) : (
+        <Component {...pageProps} />
+      )}
+    </MainLayout>
   );
 };
 
 export default MyApp;
+
+export { getServerSideProps } from '@/providers/AppChakraProvider';

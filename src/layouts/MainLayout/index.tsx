@@ -1,12 +1,24 @@
-import type { FC } from 'react';
-import React from 'react';
-import { Provider } from 'react-redux';
+import type { Session } from 'next-auth';
+import type { FC, ReactNode } from 'react';
 
-import { store } from '@/redux/store';
+import { AppChakraProvider } from '@/providers/AppChakraProvider';
+import { AppSessionProvider } from '@/providers/AppSessionProvider';
+import { AppStoreProvider } from '@/providers/AppStoreProvider';
+import type { store } from '@/redux/store';
 
-interface IMainLayout {
-  children: React.ReactNode;
+interface IMainLayoutProps {
+  children: ReactNode;
+  session?: Session;
+  cookies?: string;
+  store?: typeof store;
 }
-export const MainLayout: FC<IMainLayout> = ({ children }) => {
-  return <Provider store={store}>{children}</Provider>;
+
+export const MainLayout: FC<IMainLayoutProps> = ({ children, session, cookies, store }) => {
+  return (
+    <AppChakraProvider cookies={cookies}>
+      <AppSessionProvider session={session}>
+        <AppStoreProvider store={store}>{children}</AppStoreProvider>
+      </AppSessionProvider>
+    </AppChakraProvider>
+  );
 };

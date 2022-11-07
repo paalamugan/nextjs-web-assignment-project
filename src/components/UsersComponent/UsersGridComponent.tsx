@@ -16,7 +16,7 @@ export const UsersGridComponent: FC<IUsersGridComponentProps> = ({ children, tot
       </Heading>
       <Text textAlign={{ base: 'center', md: 'left' }} color={useColorModeValue('gray.900', 'gray.300')}>
         Showing results with FirstName starting with <strong>“G”</strong> or LastName starting with <strong>“W”</strong>{' '}
-        and total number of users is <strong>{totalCount || 0}</strong>.
+        and total number of users count is <strong>{totalCount || 0}</strong>.
       </Text>
       {children}
     </Stack>

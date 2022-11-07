@@ -7,19 +7,18 @@ import type { GetServerSideProps } from 'next';
 import type { FC, ReactNode } from 'react';
 
 import { DelayChildRendering } from '@/components/DelayChildRendering';
-import theme from '@/utils/theme';
+import appTheme from '@/utils/appTheme';
 
-interface IChakraProviderProps {
-  cookies: string;
+interface IAppChakraProviderProps {
+  cookies?: string;
   children: ReactNode;
 }
 
-export const ChakraProvider: FC<IChakraProviderProps> = ({ cookies, children }) => {
+export const AppChakraProvider: FC<IAppChakraProviderProps> = ({ cookies, children }) => {
   // b) Pass `colorModeManager` prop
   const colorModeManager = typeof cookies === 'string' ? cookieStorageManagerSSR(cookies) : localStorageManager;
-  theme.config.initialColorMode = colorModeManager.get();
   return (
-    <ChakraProviderOriginal theme={theme} colorModeManager={colorModeManager}>
+    <ChakraProviderOriginal theme={appTheme} colorModeManager={colorModeManager}>
       <DelayChildRendering>{children}</DelayChildRendering>
     </ChakraProviderOriginal>
   );

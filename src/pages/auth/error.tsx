@@ -8,7 +8,7 @@ interface IErrorPageProps {
   statusCode: number;
 }
 
-const ErrorPage: NextPage<IErrorPageProps> & { requireAuth: boolean } = ({ statusCode }) => {
+const ErrorPage: NextPage<IErrorPageProps> = ({ statusCode }) => {
   return (
     <UnAuthTemplate metaTitle="Authentication Error">
       <ErrorPageComponent statusCode={statusCode} title="Authentication Failed" />
@@ -22,7 +22,5 @@ export const getInitialProps = async ({ res, err }: any) => {
 
   return { statusCode };
 };
-
-ErrorPage.requireAuth = false;
 
 export default ErrorPage;

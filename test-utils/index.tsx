@@ -1,30 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import type { RenderOptions } from '@testing-library/react';
 import { render as rtlRender, screen } from '@testing-library/react';
-import { SessionProvider } from 'next-auth/react';
-import * as React from 'react';
-import { Provider } from 'react-redux';
+import type { ReactNode } from 'react';
 
-import { ChakraProvider } from '@/providers/ChakraProvider';
+import { MainLayout } from '@/layouts/MainLayout';
 import { createStore } from '@/redux/store';
 
-function ComponentWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <SessionProvider>
-      <ChakraProvider cookies="">{children}</ChakraProvider>
-    </SessionProvider>
-  );
+function ComponentWrapper({ children }: { children: ReactNode }) {
+  const store = createStore();
+  return <MainLayout store={store}>{children}</MainLayout>;
 }
 
 function render(ui: React.ReactElement, renderOptions?: RenderOptions) {
-  const store = createStore();
-  function StoreWrapper({ children }: { children: React.ReactNode }) {
-    return (
-      <Provider store={store}>
-        <ComponentWrapper>{children}</ComponentWrapper>
-      </Provider>
-    );
+  function StoreWrapper({ children }: { children: ReactNode }) {
+    return <ComponentWrapper>{children}</ComponentWrapper>;
   }
+
   return rtlRender(ui, {
     wrapper: StoreWrapper,
     ...renderOptions,

@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongodb';
-import type { GetServerSideProps } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { getSession } from 'next-auth/react';
-import type { FC } from 'react';
 import React from 'react';
 
 import { getDatabaseInstance } from '@/lib/mongodb';
@@ -14,7 +13,7 @@ interface IProfilePageProps {
   user: IUser | null;
 }
 
-const ProfilePage: FC<IProfilePageProps> = ({ user }) => {
+const ProfilePage: NextPage<IProfilePageProps> & { requireAuth: boolean } = ({ user }) => {
   if (!user) return null;
   return (
     <MainTemplate metaTitle="Profile">
@@ -39,5 +38,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
   };
 };
+
+ProfilePage.requireAuth = true;
 
 export default ProfilePage;

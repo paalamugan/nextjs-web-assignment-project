@@ -20,6 +20,12 @@ FROM builder as production
 ENV NODE_ENV production
 ENV PORT 3000
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV SITE_URL http://localhost:3000
+ENV REGRES_API_BASE_URL https://reqres.in/api
+ENV NEXTAUTH_SECRET 12345678901234567890123456789012
+ENV NEXTAUTH_DEBUG false
+ENV MONGODB_URI mongodb://admin:adminpassword@localhost:27017/web-oauth
+ENV JWT_SECRET_KEY 12345678901234567890123456789012
 
 # Expose the port the app runs in (3000)
 EXPOSE 3000
@@ -28,4 +34,5 @@ EXPOSE 3000
 RUN yarn build
 
 # Running the app
-ENTRYPOINT ["yarn", "start"]
+CMD ["yarn", "start"]
+# ENTRYPOINT [ "yarn", "start" ]

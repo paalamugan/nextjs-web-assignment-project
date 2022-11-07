@@ -16,12 +16,13 @@ const OAuthCallbackErrorComponent: FC = () => {
   );
 };
 
-const SignInPage: NextPage & { requireAuth: boolean } = () => {
+const SignInPage: NextPage = () => {
   const router = useRouter();
   const { error } = router.query;
 
-  const title = error === 'OAuthCallback' ? 'Authentication Error' : 'Sign In';
-  const Component = error === 'OAuthCallback' ? OAuthCallbackErrorComponent : SignInPageComponent;
+  const isAuthError = error === ('OAuthCallback' || 'Callback');
+  const title = isAuthError ? 'Authentication Error' : 'Sign In';
+  const Component = isAuthError ? OAuthCallbackErrorComponent : SignInPageComponent;
 
   return (
     <UnAuthTemplate metaTitle={title}>
@@ -30,8 +31,4 @@ const SignInPage: NextPage & { requireAuth: boolean } = () => {
   );
 };
 
-SignInPage.requireAuth = false;
-
 export default SignInPage;
-
-export { getServerSideProps } from '@/providers/ChakraProvider';

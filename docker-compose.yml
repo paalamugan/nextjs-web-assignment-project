@@ -1,18 +1,26 @@
-version: '3.8'
+version: '3.9'
 services:
   web-oauth-app:
     container_name: web-oauth-app
-    image: web-oauth-app
+    image: web-oauth-app:latest
     hostname: web-oauth-app
     build:
       context: ./
       target: production
+    env_file:
+      - ./.env.local
     environment:
-      GOOGLE_CLIENT_ID: 86598659yu
-      GOOGLE_CLIENT_SECRET: 86598659yu
-    restart: always
+    #   GOOGLE_CLIENT_ID: <REPLACE_YOUR_GOOGLE_CLIENT_ID>
+    #   GOOGLE_CLIENT_SECRET: <REPLACE_YOUR_GOOGLE_CLIENT_ID>
+    #   REGRES_API_BASE_URL: https://reqres.in/api
+    #   NEXTAUTH_SECRET: secret
+    #   NEXTAUTH_DEBUG: false
+    #   JWT_SECRET_KEY: secret
+      MONGODB_URI: mongodb://admin:adminpassword@web-oauth-mongodb:27017/web-oauth
     ports:
       - 3000:3000
+    depends_on:
+      - web-oauth-mongodb
     networks:
       - web-oauth-network
       
@@ -22,7 +30,7 @@ services:
     container_name: web-oauth-mongodb
     hostname: web-oauth-mongodb
     environment:
-      MONGO_INITDB_DATABASE: webOAuthProject
+      MONGO_INITDB_DATABASE: web-oauth
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: adminpassword
     ports:
@@ -33,8 +41,11 @@ services:
     networks:
       - web-oauth-network
 
+# Set volumes for db as a named volume
 volumes:
   web-oauth-mongodb-data:
+    driver: local # Use local driver for named volume
 # Set network as web-oauth-network
 networks:
   web-oauth-network:
+    driver: bridge # default driver is bridge only, we don't need to specify it explicitly

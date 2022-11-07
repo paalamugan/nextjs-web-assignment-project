@@ -42,6 +42,8 @@ Built-in feature from Next.js:
 
 - Node.js 14+ and yarn 1.22+ (or npm 6+)
 
+### Environment Variables
+
 ### Getting started
 
 Run the following command on your local environment:
@@ -52,10 +54,49 @@ cd nextjs-web-oauth-project
 yarn install
 ```
 
+- Environment configuration before we run the application
+
+Create `.env.local` file in the root directory and add the following environment variables:
+
+```shell
+SITE_URL=http://localhost:3000 # http://localhost:3000
+REGRES_API_BASE_URL=https://reqres.in/api # https://reqres.in/api
+NEXTAUTH_SECRET=secret # random string
+JWT_SECRET_KEY=secret # random string
+NEXTAUTH_DEBUG=false # true or false
+MONGODB_URI=mongodb://localhost:27017/web-oauth # mongodb://localhost:27017/web-oauth
+GOOGLE_CLIENT_ID=<replace-your-google-client-id> # google client id
+GOOGLE_CLIENT_SECRET=<replace-your-google-client-secret> # google client secret
+```
+
+(or) 
+
+Copy .env.example to .env.local and replace the values like above.
+
+```shell
+cp -rf .env.example .env.local
+```
+
 Then, you can run locally in development mode with live reload:
 
 ```shell
 yarn dev
+```
+
+(OR)
+
+Other available support that we can run the application for local testing without live reload using docker command:
+
+Before that, We need to have docker installed in our local machine, if not please install it from [here](https://docs.docker.com/get-docker/).
+
+```shell
+  docker-compose up -d
+```
+
+- Run Docker Compose with your custom environment file path using below command, by default it will use `.env` file or environment variables that we used inside `docker-compose.yml` file.
+
+```shell
+docker-compose --env-file .env.local up -d
 ```
 
 Open http://localhost:3000 with your favorite browser to see your project.
@@ -68,13 +109,35 @@ Open http://localhost:3000 with your favorite browser to see your project.
 ├── .husky                          # Husky configuration
 ├── .vscode                         # VSCode configuration
 ├── public                          # Public assets folder
+├── cypress                         # Cypress folder e2e testing
+├── db                              # Init db configuration for docker-compose.yml
+├── msw                             # Mock Service Worker folder
 ├── src
+│   ├── __tests__                   # Unit tests folder
+|   ├── api-helper                  # API helper folder
+│   ├── components                  # React components folder
+│   ├── constants                   # Constants folder
+│   ├── error-handlers              # Error handlers folder
+│   ├── hooks                       # React hooks folder
+│   ├── icons                       # Icons folder
 │   ├── layouts                     # Layouts components
+│   ├── lib                         # Library folder
+│   ├── page-components             # Nextjs Page components folder
 │   ├── pages                       # Next JS Pages
 │   ├── pages.test                  # Next JS Pages tests (this avoid test to treated as a Next.js pages)
-│   ├── styles                      # Styles folder
+│   ├── providers                   # Providers folder
+│   ├── redux                       # Redux folder
+│   ├── styles                      # Global SCSS Styles folder
 │   ├── templates                   # Default template
 │   └── utils                       # Utility functions
+├── test-utils                      # Test utils folder
+├── typings                         # Additional Typescript typings
+├── .env.example                    # Environment variables example
+├── .eslintrc                       # ESLint configuration
+├── Dockerfile                      # Dockerfile for production
+├── docker-compose.yml              # Docker compose configuration
+├── commitlint.config.js            # Commitlint configuration
+├── cypress.config.js               # Cypress configuration
 ├── tailwind.config.js              # Tailwind CSS configuration
 └── tsconfig.json                   # TypeScript configuration
 ```
@@ -84,17 +147,24 @@ Open http://localhost:3000 with your favorite browser to see your project.
 You can easily configure Next js Boilerplate. Please change the following file:
 
 - `public/apple-touch-icon.png`, `public/favicon.ico`, `public/favicon-16x16.png` and `public/favicon-32x32.png`: your website favicon, you can generate from https://favicon.io/favicon-converter/
-- `src/styles/global.scss`: your SCSS file using Tailwind CSS
+- `src/styles/global.scss`: your SCSS file for global styles
 - `src/utils/appConfig.ts`: configuration file
-- `src/templates/Main.tsx`: default theme
+- `src/templates/MainTemplate/index.tsx`: default main template for authenticated user
+- `src/templates/UnAuthTemplate/index.tsx`: UnAuth template for unauthenticated user
 
 ### Deploy to production
 
 You can see the results locally in production mode with:
 
 ```shell
-$ npm run build
-$ npm run start
+yarn build
+yarn start
+```
+
+Dockerfile is also available for production deployment. You can build the image with:
+
+```shell
+docker build -t web-oauth-app:latest .
 ```
 
 The generated HTML and SCSS files are minified (built-in feature from Next js). It will also removed unused CSS from [Tailwind CSS](https://tailwindcss.com).
@@ -102,10 +172,10 @@ The generated HTML and SCSS files are minified (built-in feature from Next js). 
 You can create an optimized production build with:
 
 ```shell
-npm run build-prod
+yarn build-prod
 ```
 
-Now, your blog is ready to be deployed. All generated files are located at `out` folder, which you can deploy with any hosting service.
+Now, Our app is ready to be deployed. All generated files are located at `out` folder, which you can deploy with any hosting service.
 
 ### Testing
 

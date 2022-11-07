@@ -1,7 +1,10 @@
-import { ColorModeScript, theme } from '@chakra-ui/react';
+import '@/lib/mongodb/init';
+
+import { ColorModeScript } from '@chakra-ui/react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 import appConfig from '@/utils/appConfig';
+import appTheme from '@/utils/appTheme';
 
 // Need to create a custom _document because i18n support is not compatible with `next export`.
 class MyDocument extends Document {
@@ -11,7 +14,7 @@ class MyDocument extends Document {
       <Html lang={appConfig.locale}>
         <Head />
         <body>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <ColorModeScript initialColorMode={appTheme.config.initialColorMode} />
           <Main />
           <NextScript />
         </body>
