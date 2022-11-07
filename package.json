@@ -116,5 +116,25 @@
   "engines": {
     "node": ">=16.16.0",
     "yarn": ">=1.22.17"
-  }
+  },
+  "keywords": [
+    "nextjs",
+    "msw",
+    "next-auth",
+    "typescript",
+    "tailwindcss",
+    "chakra-ui",
+    "react",
+    "redux",
+    "redux-toolkit",
+    "jest",
+    "cypress",
+    "eslint",
+    "prettier",
+    "commitlint",
+    "commitizen",
+    "husky",
+    "lint-staged",
+    "start-server-and-test"
+  ]
 }

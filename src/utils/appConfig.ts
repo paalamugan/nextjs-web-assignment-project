@@ -9,7 +9,7 @@ const appConfig = {
   reqresApiBaseUrl: process.env.REGRES_API_BASE_URL || 'https://reqres.in/api',
   googleClientId: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  mongodbUri: process.env.MONGODB_URI,
+  mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/web-oauth',
   jwtSecretKey: process.env.JWT_SECRET_KEY || 'secret',
 } as const;
 
