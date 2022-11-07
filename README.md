@@ -94,7 +94,7 @@ yarn dev
 
 Open http://localhost:3000 with our favorite browser to see our project.
 
-### Run on application using docker-compose cli(Optional)
+### Run on application using docker-compose cli (Optional)
 
 Before run the below command, We need to have docker installed in our local machine, if not please install it from [here](https://docs.docker.com/get-docker/).
 
@@ -102,7 +102,7 @@ Before run the below command, We need to have docker installed in our local mach
   docker-compose up -d
 ```
 
-- Run Docker Compose with our custom environment file path using below command, by default it will use `.env` file or environment variables that we used inside `docker-compose.yml` file.
+Run Docker Compose with our custom environment file path using below command, by default it will use `.env` file or environment variables that we used inside `docker-compose.yml` file.
 
 ```shell
 docker-compose --env-file .env.local up -d
